@@ -1,0 +1,79 @@
+body
+{
+    text-align: center;
+}
+
+li
+{
+  float: left;
+    clear: both;
+}
+
+#id
+{
+    display: none;
+}
+
+.wrong_calories,.wrong_date
+{
+    color:red;
+}
+
+.meal_input
+{
+    display: inline;
+    font-size: 25px;
+    text-align: center;
+}
+
+#startDate,#endDate
+{
+    font-size: 15px;
+}
+
+.dateFilter
+{
+    text-align: center;
+}
+
+#filter_submit
+{
+    text-align: center;
+}
+
+.submit
+{
+    margin-top: 30px;
+    padding:10px 30px 10px 30px;
+    font-size: 20px;
+}
+
+.filter
+{
+    margin-top: 20px;
+    padding:7px 25px 7px 25px;
+    font-size: 15px;
+}
+
+.submit:hover
+{
+    background-color: cornflowerblue;
+}
+
+th,td
+{
+    padding-right: 30px;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+th
+{
+   text-align: center;
+}
+
+#addMeal
+{
+    margin-top: 20px;
+    font-size: 25px;
+}

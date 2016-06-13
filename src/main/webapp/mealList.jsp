@@ -31,8 +31,9 @@
             <th></th>
         </tr>
         </thead>
+        <%--@elvariable id="mealList" type="java.util.List"--%>
         <c:forEach items="${mealList}" var="meal">
-            <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.model.UserMealWithExceed"/>
+            <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.to.UserMealWithExceed"/>
             <tr class="${meal.exceed ? 'exceeded' : 'normal'}">
                 <td>
                         <%--${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}--%>
@@ -46,6 +47,30 @@
             </tr>
         </c:forEach>
     </table>
+</section>
+<section>
+    <h4>Meal filter</h4>
+    <form method="POST" action='meals' name="frmFilterMeal">
+        <table>
+            <tbody>
+            <tr>
+                <td class="dateFilter">Start date</td>
+                <td class="dateFilter">End date</td>
+            </tr>
+            <tr>
+                <td><input id="startDate"
+                           type="datetime-local" name="startDate"
+                           value="" /> <br /></td>
+                <td><input id="endDate"
+                           type="datetime-local" name="endDate"
+                           value="" /> <br /></td>
+            </tr>
+            <tr>
+                <td id = "filter_submit" colspan=2><input class="btn submit filter" type="submit" value="Filter" /></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
 </section>
 </body>
 </html>

@@ -8,12 +8,13 @@ import java.util.Collection;
  * GKislin
  * 06.03.2015.
  */
-public interface UserMealRepository {
+public interface UserMealRepository
+{
     UserMeal save(UserMeal userMeal);
 
-    void delete(int id);
+    boolean delete(int id,int userId);
 
-    UserMeal get(int id);
+    UserMeal get(int id,int userId);
 
-    Collection<UserMeal> getAll();
+    Collection<UserMeal> getAll(int userId);
 }

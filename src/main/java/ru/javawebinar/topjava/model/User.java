@@ -12,27 +12,27 @@ import java.util.Set;
  */
 public class User extends NamedEntity {
 
-    protected String email;
+    private String email;
 
-    protected String password;
+    private String password;
 
-    protected boolean enabled = true;
+    private boolean enabled = true;
 
-    protected Date registered = new Date();
+    private Date registered = new Date();
 
-    protected Set<Role> roles;
+    private Set<Role> roles;
 
-    protected int caloriesPerDay = UserMealsUtil.DEFAULT_CALORIES_PER_DAY;
+    private int caloriesPerDay = UserMealsUtil.DEFAULT_CALORIES_PER_DAY;
 
     public User() {
     }
 
-    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
-        this(id, name, email, password, UserMealsUtil.DEFAULT_CALORIES_PER_DAY, true, EnumSet.of(role, roles));
+    public User(String name, String email, String password, Role role, Role... roles) {
+        this(name, email, password, UserMealsUtil.DEFAULT_CALORIES_PER_DAY, true, EnumSet.of(role, roles));
     }
 
-    public User(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Set<Role> roles) {
-        super(id, name);
+    public User(String name, String email, String password, int caloriesPerDay, boolean enabled, Set<Role> roles) {
+        super(null,name);
         this.email = email;
         this.password = password;
         this.caloriesPerDay = caloriesPerDay;
@@ -82,6 +82,16 @@ public class User extends NamedEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
+    public boolean isNew() {
+        return this.id == null;
     }
 
     @Override

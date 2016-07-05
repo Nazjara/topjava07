@@ -1,10 +1,9 @@
 package ru.javawebinar.topjava.model;
 
-import ru.javawebinar.topjava.util.UserMealsUtil;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import ru.javawebinar.topjava.util.UserMealsUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -28,6 +27,9 @@ public class User extends NamedEntity {
     public static final String DELETE = "User.delete";
     public static final String ALL_SORTED = "User.getAllSorted";
     public static final String BY_EMAIL = "User.getByEmail";
+
+    @OneToMany(mappedBy = "user")
+    protected Set<UserMeal> meals;
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -117,6 +119,14 @@ public class User extends NamedEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public Set<UserMeal> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(Set<UserMeal> meals) {
+        this.meals = meals;
     }
 
     @Override

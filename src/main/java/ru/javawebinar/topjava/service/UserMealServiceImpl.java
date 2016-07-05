@@ -24,6 +24,11 @@ public class UserMealServiceImpl implements UserMealService {
         return ExceptionUtil.checkNotFoundWithId(repository.get(id, userId), id);
     }
 
+    public UserMeal getWithUser(int id,int userId)
+    {
+        return ExceptionUtil.checkNotFoundWithId(repository.getWithUser(id, userId), id);
+    }
+
     @Override
     public void delete(int id, int userId) {
         ExceptionUtil.checkNotFoundWithId(repository.delete(id, userId), id);

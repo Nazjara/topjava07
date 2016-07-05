@@ -67,6 +67,11 @@ public class InMemoryUserMealRepositoryImpl implements UserMealRepository {
     }
 
     @Override
+    public UserMeal getWithUser(int id, int userId) {
+        return null;
+    }
+
+    @Override
     public Collection<UserMeal> getAll(int userId) {
         Map<Integer, UserMeal> userMeals = repository.get(userId);
         return userMeals == null ?

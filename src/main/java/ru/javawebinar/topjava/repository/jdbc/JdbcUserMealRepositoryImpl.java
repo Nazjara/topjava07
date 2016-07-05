@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 
 @Repository
+@Profile("jdbc")
 public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
     private static final RowMapper<UserMeal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserMeal.class);
@@ -75,6 +77,11 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
         List<UserMeal> userMeals = jdbcTemplate.query(
                 "SELECT * FROM meals WHERE id = ? AND user_id = ?", ROW_MAPPER, id, userId);
         return DataAccessUtils.singleResult(userMeals);
+    }
+
+    @Override
+    public UserMeal getWithUser(int id, int userId) {
+        throw new UnsupportedOperationException();
     }
 
     public List<UserMeal> getAll(int userId) {

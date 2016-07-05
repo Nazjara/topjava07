@@ -73,6 +73,11 @@ public class JdbcUserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public User getWithMeals(int id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public User getByEmail(String email) {
         return jdbcTemplate.queryForObject("SELECT * FROM users WHERE email=?", ROW_MAPPER, email);
     }

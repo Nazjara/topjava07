@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.repository.jpa;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 
 @Repository
+@Profile("jpa")
 @Transactional(readOnly = true)
 public class JpaUserMealRepositoryImpl implements UserMealRepository {
 
@@ -55,6 +57,11 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
                 .setParameter("userId", userId)
                 .getResultList();
         return DataAccessUtils.singleResult(userMeals);
+    }
+
+    @Override
+    public UserMeal getWithUser(int id, int userId) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

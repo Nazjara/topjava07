@@ -57,6 +57,10 @@
         <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
             <constructor-arg ref="dataSource"/>
         </bean>
+
+        <bean id="jdbcUserRepositoryImpl" class="ru.javawebinar.topjava.repository.jdbc.JdbcUserRepositoryImpl">
+            <constructor-arg ref="transactionManager"/>
+        </bean>
     </beans>
 
     <beans profile="datajpa,jpa">

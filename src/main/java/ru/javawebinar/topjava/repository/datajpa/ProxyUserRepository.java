@@ -26,6 +26,7 @@ public interface ProxyUserRepository extends JpaRepository<User, Integer> {
     User save(User user);
 
     @Override
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.id = ?1")
     User findOne(Integer id);
 
     @Override

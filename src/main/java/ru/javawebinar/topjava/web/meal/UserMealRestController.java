@@ -20,11 +20,11 @@ import java.util.List;
  * 06.03.2015.
  */
 @Controller
-public class UserMealRestController {
-    private static final Logger LOG = LoggerFactory.getLogger(UserMealRestController.class);
+public abstract class UserMealRestController {
+    protected final Logger LOG = LoggerFactory.getLogger(UserMealRestController.class);
 
     @Autowired
-    private UserMealService service;
+    protected UserMealService service;
 
     public UserMeal get(int id) {
         int userId = AuthorizedUser.id();

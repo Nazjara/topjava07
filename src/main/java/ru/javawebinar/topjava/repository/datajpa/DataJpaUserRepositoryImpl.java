@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.repository.datajpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
@@ -19,6 +20,7 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
     private ProxyUserRepository proxy;
 
     @Override
+    @Transactional
     public User save(User user) {
         return proxy.save(user);
     }

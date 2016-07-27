@@ -27,8 +27,8 @@ public interface ProxyUserRepository extends JpaRepository<User, Integer> {
     User save(User user);
 
     @Override
-    @EntityGraph(value = User.GRAPH_WITH_ROLES)
-    User findOne(Integer id);
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.id=:id")
+    User findOne(@Param("id")Integer id);
 
     @Override
     @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email")

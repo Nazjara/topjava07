@@ -11,24 +11,24 @@
     <div class="container">
         <div class="shadow">
     <h3><fmt:message key="meals.title"/></h3>
-    <form method="post" action="meals/filter">
+    <form method="post" id="date_form">
         <dl>
             <dt>From Date:</dt>
-            <dd><input type="date" name="startDate" value="${startDate}"></dd>
+            <dd><input type="date" name="startDate" id="startDate" value="${startDate}"></dd>
         </dl>
         <dl>
             <dt>To Date:</dt>
-            <dd><input type="date" name="endDate" value="${endDate}"></dd>
+            <dd><input type="date" name="endDate" id="endDate" value="${endDate}"></dd>
         </dl>
         <dl>
             <dt>From Time:</dt>
-            <dd><input type="time" name="startTime" value="${startTime}"></dd>
+            <dd><input type="time" name="startTime" id="startTime" value="${startTime}"></dd>
         </dl>
         <dl>
             <dt>To Time:</dt>
-            <dd><input type="time" name="endTime" value="${endTime}"></dd>
+            <dd><input type="time" name="endTime" id="endTime" value="${endTime}"></dd>
         </dl>
-        <button class="btn btn-primary" type="submit"><fmt:message key="meals.filter"/></button>
+        <a class="btn btn-primary" id ="date_submit"><fmt:message key="meals.filter"/></a>
     </form>
     <hr>
     <a class="btn btn-sm btn-info" id="add"><fmt:message key="meals.add"/></a>
@@ -45,7 +45,7 @@
         </thead>
         <c:forEach items="${mealList}" var="meal">
             <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.to.UserMealWithExceed"/>
-            <tr class="${meal.exceed ? 'exceeded' : 'normal'}">
+            <tr id="${meal.id}" class="${meal.exceed ? 'exceeded' : 'normal'}">
                 <td>
                         <%--${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}--%>
                         <%--<%=TimeUtil.toString(meal.getDateTime())%>--%>
@@ -53,8 +53,8 @@
                 </td>
                 <td>${meal.description}</td>
                 <td>${meal.calories}</td>
-                <td><a class="btn btn-xs btn-primary edit" id=${meal.id}>Update</a></td>
-                <td><a class="btn btn-xs btn-danger delete" id="${meal.id}">Delete</a></td>
+                <td><a class="btn btn-xs btn-primary edit">Update</a></td>
+                <td><a class="btn btn-xs btn-danger deleteMeal">Delete</a></td>
             </tr>
         </c:forEach>
     </table>

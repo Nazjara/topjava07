@@ -7,6 +7,8 @@
     <import resource="spring-tools.xml"/>
     <import resource="spring-security.xml"/>
 
+    <bean class="ru.javawebinar.topjava.util.UserMealValidator" id="userMealValidator"/>
+
     <context:annotation-config/>
 
     <context:component-scan base-package="ru.javawebinar.**.service"/>

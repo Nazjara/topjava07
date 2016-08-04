@@ -1,10 +1,10 @@
-<%@ page import="ru.javawebinar.topjava.util.TimeUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.12/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="webjars/datetimepicker/2.4.7/jquery.datetimepicker.css">
 
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
@@ -20,26 +20,26 @@
                         <label class="control-label col-sm-2" for="startDate">From Date:</label>
 
                         <div class="col-sm-2">
-                            <input type="date" name="startDate" id="startDate">
+                            <input class="form-control" name="startDate" id="startDate">
                         </div>
 
                         <label class="control-label col-sm-2" for="endDate">To Date:</label>
 
                         <div class="col-sm-2">
-                            <input type="date" name="endDate" id="endDate">
+                            <input class="form-control" name="endDate" id="endDate">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="startTime">From Time:</label>
 
                         <div class="col-sm-2">
-                            <input type="time" name="startTime" id="startTime">
+                            <input class="form-control time-picker" name="startTime" id="startTime">
                         </div>
 
                         <label class="control-label col-sm-2" for="endTime">To Time:</label>
 
                         <div class="col-sm-2">
-                            <input type="time" name="endTime" id="endTime">
+                            <input class="form-control time-picker" name="endTime" id="endTime">
                         </div>
                     </div>
                     <div class="form-group">
@@ -59,20 +59,6 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <c:forEach items="${mealList}" var="meal">
-                        <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.to.UserMealWithExceed"/>
-                        <tr class="${meal.exceed ? 'exceeded' : 'normal'}">
-                            <td>
-                                    <%--<fmt:parseDate value="${meal.dateTime}" pattern="y-M-dd'T'H:m" var="parsedDate"/>--%>
-                                    <%--<fmt:formatDate value="${parsedDate}" pattern="yyyy.MM.dd HH:mm" />--%>
-                                <%=TimeUtil.toString(meal.getDateTime())%>
-                            </td>
-                            <td>${meal.description}</td>
-                            <td>${meal.calories}</td>
-                            <td><a class="btn btn-xs btn-primary">Edit</a></td>
-                            <td><a class="btn btn-xs btn-danger" onclick="deleteRow(${meal.id})">Delete</a></td>
-                        </tr>
-                    </c:forEach>
                 </table>
             </div>
         </div>
@@ -95,8 +81,7 @@
                         <label for="dateTime" class="control-label col-xs-3">Date</label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="dateTime"
-                                   name="dateTime" placeholder="Date">
+                            <input class="form-control" id="dateTime" name="dateTime" placeholder="Date">
                         </div>
                     </div>
                     <div class="form-group">
@@ -130,58 +115,7 @@
 <script type="text/javascript" src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<script type="text/javascript" src="webjars/datetimepicker/2.4.7/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
-<script type="text/javascript">
-    var ajaxUrl = 'ajax/profile/meals/';
-    var datatableApi;
-
-    function updateTable() {
-        $.ajax({
-            type: "POST",
-            url: ajaxUrl + 'filter',
-            data: $('#filter').serialize(),
-            success: updateTableByData
-        });
-        return false;
-    }
-
-    $(function () {
-        datatableApi = $('#datatable').DataTable(
-                {
-                    "paging": false,
-                    "info": true,
-                    "columns": [
-                        {
-                            "data": "dateTime"
-                        },
-                        {
-                            "data": "description"
-                        },
-                        {
-                            "data": "calories"
-                        },
-                        {
-                            "defaultContent": "Edit",
-                            "orderable": false
-                        },
-                        {
-                            "defaultContent": "Delete",
-                            "orderable": false
-                        }
-                    ],
-                    "order": [
-                        [
-                            0,
-                            "desc"
-                        ]
-                    ]
-                });
-
-        $('#filter').submit(function () {
-            updateTable();
-            return false;
-        });
-        makeEditable();
-    });
-</script>
+<script type="text/javascript" src="resources/js/mealDatatables.js"></script>
 </html>

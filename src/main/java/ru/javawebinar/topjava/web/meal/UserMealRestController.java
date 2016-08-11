@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.to.UserMealWithExceed;
-import ru.javawebinar.topjava.util.TimeUtil;
-import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = UserMealRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserMealRestController extends AbstractUserMealController implements ExceptionInfoHandler {
+public class UserMealRestController extends AbstractUserMealController {
     static final String REST_URL = "/rest/profile/meals";
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -37,12 +36,12 @@ public class UserMealRestController extends AbstractUserMealController implement
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody UserMeal meal, @PathVariable("id") int id) {
+    public void update(@Valid @RequestBody UserMeal meal, @PathVariable("id") int id) {
         super.update(meal, id);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserMeal> createWithLocation(@RequestBody UserMeal meal) {
+    public ResponseEntity<UserMeal> createWithLocation(@Valid @RequestBody UserMeal meal) {
         UserMeal created = super.create(meal);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()

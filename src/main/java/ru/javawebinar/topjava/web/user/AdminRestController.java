@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(AdminRestController.REST_URL)
-public class AdminRestController extends AbstractUserController implements ExceptionInfoHandler {
+public class AdminRestController extends AbstractUserController {
     static final String REST_URL = "/rest/admin/users";
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -30,7 +30,7 @@ public class AdminRestController extends AbstractUserController implements Excep
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createWithLocation(@RequestBody User user) {
+    public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
         User created = super.create(user);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -48,7 +48,7 @@ public class AdminRestController extends AbstractUserController implements Excep
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody User user, @PathVariable("id") int id) {
+    public void update(@Valid @RequestBody User user, @PathVariable("id") int id) {
         super.update(user, id);
     }
 

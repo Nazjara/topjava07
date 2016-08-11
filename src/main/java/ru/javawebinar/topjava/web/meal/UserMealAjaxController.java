@@ -1,15 +1,20 @@
 package ru.javawebinar.topjava.web.meal;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.to.UserMealWithExceed;
+import ru.javawebinar.topjava.util.exception.ErrorInfo;
+import ru.javawebinar.topjava.util.exception.ValidationException;
 import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -33,6 +38,14 @@ public class UserMealAjaxController extends AbstractUserMealController implement
     }
 */
 
+    @ResponseStatus(value = HttpStatus.CONFLICT)  // 409
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseBody
+    @Order(Ordered.HIGHEST_PRECEDENCE + 1)
+    private ErrorInfo conflict(HttpServletRequest req) {
+        return new ErrorInfo(req.getRequestURL(),"Meal with this date already present in application","");
+    }
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserMealWithExceed> getAll() {
         return super.getAll();
@@ -49,19 +62,17 @@ public class UserMealAjaxController extends AbstractUserMealController implement
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> updateOrCreate(@Valid UserMeal meal, BindingResult result) {
-        if (result.hasErrors()) {
-            // TODO change to exception handler
-            StringBuilder sb = new StringBuilder();
-            result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br>"));
-            return new ResponseEntity<>(sb.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
+    public void updateOrCreate(@Valid UserMeal meal, BindingResult result, SessionStatus status) {
+        if(result.hasErrors())
+        {
+            throw new ValidationException(result);
         }
+        status.setComplete();
         if (meal.isNew()) {
             super.create(meal);
         } else {
             super.update(meal, meal.getId());
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

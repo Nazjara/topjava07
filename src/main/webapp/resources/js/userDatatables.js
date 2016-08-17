@@ -42,8 +42,7 @@ $(function () {
                 "data": "registered",
                 "render": function (date, type, row) {
                     if (type == 'display') {
-                        var dateObject = new Date(date);
-                        return '<span>' + dateObject.toISOString().substring(0, 10) + '</span>';
+                        return '<span>' + date.substring(0, 10) + '</span>';
                     }
                     return date;
                 }
@@ -51,7 +50,9 @@ $(function () {
             {
                 "orderable": false,
                 "defaultContent": "",
-                "render": renderEditBtn
+                "render": function (date, type, row) {
+                    return renderEditBtn(type, row, 'users.edit');
+                }
             },
             {
                 "orderable": false,

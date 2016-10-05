@@ -14,7 +14,7 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h2>${register ? 'Register new' : userTo.name.concat(' profile')}</h2>
+            <h2>${register ? 'Register new profile' : userTo.name.concat(' profile')}</h2>
 
             <div class="view-box">
                 <form:form modelAttribute="userTo" class="form-horizontal" method="post"
@@ -28,7 +28,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-10">
-                            <button type="submit" class="btn btn-primary">${register ? 'Add' : 'Update'}</button>
+                            <button type="submit" class="btn btn-primary">${register ? 'Register' : 'Update'}</button>
                         </div>
                     </div>
                 </form:form>

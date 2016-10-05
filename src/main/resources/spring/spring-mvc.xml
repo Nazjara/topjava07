@@ -57,22 +57,24 @@
           p:cacheSeconds="60"
           p:defaultEncoding="UTF-8">
 
-        <property name="basenames">
+        <property name="basename">
             <list>
                 <value>messages/app</value>
             </list>
         </property>
     </bean>
 -->
+
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:cacheSeconds="60"
           p:defaultEncoding="UTF-8">
-        <property name="basenames" value="file:///#{systemEnvironment['TOPJAVA_ROOT']}/config/messages/app"/>
+        <!--<property name="basename" value="file:///#{systemEnvironment['TOPJAVA07_ROOT']}/config/messages/app"/>-->
+        <property name="basename" value="classpath:/app"/>
         <property name="fallbackToSystemLocale" value="false"/>
     </bean>
 
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-        <property name="defaultLocale" value="ru"/>
+        <property name="defaultLocale" value="en"/>
     </bean>
 
     <mvc:interceptors>

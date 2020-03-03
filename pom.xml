@@ -22,7 +22,7 @@
         <spring.version>4.3.20.RELEASE</spring.version>
         <spring-security.version>4.1.5.RELEASE</spring-security.version>
         <spring-data-jpa.version>1.11.22.RELEASE</spring-data-jpa.version>
-        <jackson-json.version>2.9.8</jackson-json.version>
+        <jackson-json.version>2.10.0</jackson-json.version>
 
         <!-- Logging -->
         <logback.version>1.2.0</logback.version>
